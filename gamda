@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>شحن رصيد فودافون - المهندس محمد جمدة</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            background: white;
+            min-height: 100vh;
+            position: relative;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #e53e3e 0%, #c53030 100%);
+            padding: 20px;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .header .subtitle {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        .settings-btn, .dark-mode-btn {
+            position: absolute;
+            top: 20px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid rgba(255,255,255,0.3);
+            background: rgba(255,255,255,0.1);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .settings-btn {
+            right: 20px;
+        }
+
+        .dark-mode-btn {
+            right: 70px;
+        }
+
+        .settings-btn:hover, .dark-mode-btn:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .phone-section {
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        .phone-number {
+            background: linear-gradient(135deg, #e53e3e 0%, #c53030 100%);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            border: 3px solid #e53e3e;
+            transition: all 0.3s ease;
+        }
+
+        .phone-number:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(229, 62, 62, 0.3);
+        }
+
+        .balance-section {
+            margin: 30px 0;
+        }
+
+        .balance-title {
+            color: #e53e3e;
+            font-size: 18px;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .balance-input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #22c55e;
+            border-radius: 8px;
+            font-size: 16px;
+            text-align: center;
+            background: #f0fdf4;
+            color: #15803d;
+            font-weight: bold;
+        }
+
+        .price-section {
+            margin: 20px 0;
+        }
+
+        .price-label {
+            color: #333;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        .price-input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 16px;
+            text-align: center;
+            background: #f9fafb;
+        }
+
+        .form-group {
+            margin: 20px 0;
+        }
+
+        .form-group label {
+            display: block;
+            color: #333;
+            font-size: 16px;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 16px;
+            background: white;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #e53e3e;
+            box-shadow: 0 0 0 3px rgba(229, 62, 62, 0.1);
+        }
+
+        .buttons-section {
+            padding: 20px;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+            color: white;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #6b7280 0%, #374151 100%);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .divider {
+            text-align: center;
+            margin: 20px 0;
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        .contact-section {
+            padding: 20px;
+            background: #f9fafb;
+            text-align: center;
+        }
+
+        .contact-title {
+            color: #333;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .social-link {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            font-size: 24px;
+            transition: all 0.3s ease;
+        }
+
+        .social-link.whatsapp {
+            background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
+        }
+
+        .social-link.telegram {
+            background: linear-gradient(135deg, #0088cc 0%, #0066aa 100%);
+        }
+
+        .social-link.support {
+            background: linear-gradient(135deg, #6b7280 0%, #374151 100%);
+        }
+
+        .social-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .social-text {
+            font-size: 12px;
+            margin-top: 5px;
+            color: #6b7280;
+        }
+
+        .price-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .price-option {
+            padding: 10px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .price-option:hover {
+            border-color: #e53e3e;
+            background: #fef2f2;
+        }
+
+        .price-option.active {
+            border-color: #e53e3e;
+            background: #fef2f2;
+        }
+
+        .dark-mode {
+            background-color: #1f2937;
+            color: #f9fafb;
+        }
+
+        .dark-mode .container {
+            background: #111827;
+        }
+
+        .dark-mode .form-group input,
+        .dark-mode .price-input,
+        .dark-mode .balance-input {
+            background: #374151;
+            border-color: #4b5563;
+            color: #f9fafb;
+        }
+
+        .dark-mode .contact-section {
+            background: #374151;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                max-width: 100%;
+            }
+            
+            .header h1 {
+                font-size: 24px;
+            }
+            
+            .phone-number {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="settings-btn" onclick="toggleSettings()" title="الإعدادات">
+                ⚙️
+            </div>
+            <div class="dark-mode-btn" onclick="toggleDarkMode()" title="الوضع الليلي">
+                🌙
+            </div>
+            <h1>المهندس محمد جمدة</h1>
+            <div class="subtitle">خدمة شحن رصيد فودافون</div>
+        </div>
+
+        <div class="phone-section">
+            <div class="phone-number" onclick="copyToClipboard('01062549764')">
+                01062549764
+            </div>
+            
+            <div class="balance-section">
+                <div class="balance-title">شحن رصيد فودافون</div>
+                <div style="margin-bottom: 10px; color: #6b7280;">الرصيد المطلوب (10 فاكتر)</div>
+                <input type="number" class="balance-input" id="balanceAmount" placeholder="30" value="30">
+            </div>
+
+            <div class="price-section">
+                <div class="price-label">السعر</div>
+                <input type="text" class="price-input" id="priceAmount" value="39 جنيهاً" readonly>
+            </div>
+
+            <div class="price-options">
+                <div class="price-option active" onclick="selectAmount(30, 39)">
+                    <div>30 رصيد</div>
+                    <div style="color: #22c55e; font-weight: bold;">39 ج</div>
+                </div>
+                <div class="price-option" onclick="selectAmount(100, 125)">
+                    <div>100 رصيد</div>
+                    <div style="color: #22c55e; font-weight: bold;">125 ج</div>
+                </div>
+                <div class="price-option" onclick="selectAmount(150, 190)">
+                    <div>150 رصيد</div>
+                    <div style="color: #22c55e; font-weight: bold;">190 ج</div>
+                </div>
+                <div class="price-option" onclick="selectAmount(200, 250)">
+                    <div>200 رصيد</div>
+                    <div style="color: #22c55e; font-weight: bold;">250 ج</div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>الرقم اللي هندفع منه (11 رقم)</label>
+                <input type="tel" id="paymentNumber" placeholder="إدخال الرقم اللي هندفع منه">
+            </div>
+
+            <div class="form-group">
+                <label>الرقم اللي مستلم عليه (11 رقم)</label>
+                <input type="tel" id="receiverNumber" placeholder="إدخال الرقم اللي مستلم عليه">
+            </div>
+        </div>
+
+        <div class="buttons-section">
+            <button class="btn btn-primary" onclick="uploadImage()">
+                📷 رفع صورة (اختياري)
+            </button>
+            <input type="file" id="imageUpload" accept="image/*" style="display: none;" onchange="handleImageUpload(event)">
+            
+            <button class="btn btn-secondary" onclick="sendRequest()">
+                إرسال الطلب
+            </button>
+
+            <div class="divider">أو</div>
+
+            <button class="btn btn-danger" onclick="viewRequests()">
+                🔄 عرض الطلبات
+            </button>
+        </div>
+
+        <div class="contact-section">
+            <div class="contact-title">تواصل معنا عبر</div>
+            <div class="social-links">
+                <a href="https://wa.me/201062549764" class="social-link whatsapp" target="_blank" title="واتساب">
+                    💬
+                    <div class="social-text">واتساب</div>
+                </a>
+                <a href="https://t.me/+201062549764" class="social-link telegram" target="_blank" title="تليجرام">
+                    ✈️
+                    <div class="social-text">تليجرام</div>
+                </a>
+                <a href="tel:+201062549764" class="social-link support" title="الدعم الفني">
+                    👨‍💼
+                    <div class="social-text">الدعم الفني</div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let selectedImage = null;
+        
+        // تحديث السعر عند تغيير المبلغ
+        document.getElementById('balanceAmount').addEventListener('input', function() {
+            const amount = parseInt(this.value);
+            let price;
+            
+            if (amount <= 30) {
+                price = Math.ceil(amount * 1.3); // تقريباً 39/30
+            } else if (amount <= 100) {
+                price = Math.ceil(amount * 1.25); // تقريباً 125/100
+            } else if (amount <= 150) {
+                price = Math.ceil(amount * 1.27); // تقريباً 190/150
+            } else {
+                price = Math.ceil(amount * 1.25); // تقريباً 250/200
+            }
+            
+            document.getElementById('priceAmount').value = price + ' جنيهاً';
+        });
+
+        function selectAmount(balance, price) {
+            document.getElementById('balanceAmount').value = balance;
+            document.getElementById('priceAmount').value = price + ' جنيهاً';
+            
+            // إزالة التحديد من جميع الخيارات
+            document.querySelectorAll('.price-option').forEach(option => {
+                option.classList.remove('active');
+            });
+            
+            // تحديد الخيار المضغوط
+            event.target.closest('.price-option').classList.add('active');
+        }
+
+        function uploadImage() {
+            document.getElementById('imageUpload').click();
+        }
+
+        function handleImageUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                selectedImage = file;
+                alert('تم اختيار الصورة بنجاح');
+            }
+        }
+
+        function sendRequest() {
+            const balance = document.getElementById('balanceAmount').value;
+            const price = document.getElementById('priceAmount').value;
+            const paymentNumber = document.getElementById('paymentNumber').value;
+            const receiverNumber = document.getElementById('receiverNumber').value;
+
+            if (!paymentNumber || !receiverNumber) {
+                alert('يرجى إدخال جميع البيانات المطلوبة');
+                return;
+            }
+
+            if (paymentNumber.length !== 11 || receiverNumber.length !== 11) {
+                alert('يرجى إدخال أرقام صحيحة مكونة من 11 رقم');
+                return;
+            }
+
+            const message = `طلب شحن رصيد جديد\n\n` +
+                          `💰 المبلغ: ${balance} جنيه\n` +
+                          `💳 السعر: ${price}\n` +
+                          `📱 الرقم الدافع: ${paymentNumber}\n` +
+                          `📞 الرقم المستلم: ${receiverNumber}\n` +
+                          `⏰ التوقيت: ${new Date().toLocaleString('ar-EG')}`;
+
+            const whatsappUrl = `https://wa.me/201062549764?text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank');
+        }
+
+        function viewRequests() {
+            const whatsappUrl = `https://wa.me/201062549764?text=${encodeURIComponent('أريد عرض طلباتي')}`;
+            window.open(whatsappUrl, '_blank');
+        }
+
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(function() {
+                alert('تم نسخ الرقم بنجاح');
+            });
+        }
+
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            const isDark = document.body.classList.contains('dark-mode');
+            localStorage.setItem('darkMode', isDark);
+        }
+
+        function toggleSettings() {
+            alert('إعدادات الموقع\n\nللتواصل مع المطور:\nواتساب: 01062549764');
+        }
+
+        // تحميل الوضع الليلي من التخزين المحلي
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.body.classList.add('dark-mode');
+        }
+
+        // تأثيرات بصرية متقدمة
+        document.addEventListener('DOMContentLoaded', function() {
+            // تأثير التمرير السلس
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+
+            // تأثير التحميل
+            document.body.style.opacity = '0';
+            setTimeout(() => {
+                document.body.style.transition = 'opacity 0.5s ease-in-out';
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+
+        // تحديث الوقت كل دقيقة
+        setInterval(() => {
+            // يمكن إضافة عداد أو ساعة إذا لزم الأمر
+        }, 60000);
+    </script>
+</body>
+</html>
